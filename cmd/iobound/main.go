@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"runtime"
 	"sync"
 )
 
@@ -12,17 +11,11 @@ func main() {
 	fileNames := createFiles(numberOfTasks)
 	defer removeFiles(fileNames)
 
-	maxGoroutines := min(numberOfTasks, runtime.NumCPU()) 
-	// Empty struct because this is a signalling channel and empty struct uses 0 bytes of memory
-	limiterChan := make(chan struct{}, maxGoroutines)
-
 	var wg sync.WaitGroup
 	for _, fileName := range fileNames {
 		wg.Add(1)
-		limiterChan <- struct{}{} //block when limit maxGoroutines is reached
 		go func() {
 			readFile(fileName)
-			<-limiterChan //receive from channel allow another goroutine to be run
 			wg.Done()
 		}()
 	}
