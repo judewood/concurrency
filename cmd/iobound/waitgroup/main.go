@@ -15,8 +15,8 @@ func main() {
 	for _, fileName := range fileNames {
 		wg.Add(1)
 		go func() {
+			defer wg.Done()
 			readFile(fileName)
-			wg.Done()
 		}()
 	}
 	wg.Wait() //prevent removal of files until they have been read
