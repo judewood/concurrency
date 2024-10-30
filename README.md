@@ -1,12 +1,6 @@
 # concurrency
 Examples of golang concurrency use cases and sample implementations
 
-## iobound 
-folder `./iobound`
-Using concurrency for io bound operation (file access)
-The goroutines are blocked by the operating system file operations
-While a goroutine is blocked then a goroutine that is in the runnable state and be run on the same CPU thread
-
 ## Data race atomic
 folder `./datarace/atomic`
 Data race occurs when multiple goroutines attempt to access the same variable and at least one goroutine is writing to the variable. 
