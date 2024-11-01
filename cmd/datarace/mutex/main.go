@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -14,7 +13,7 @@ func main() {
 	for i := 0; i < n; i++ {
 		wg.Add(1)
 		go func() {
-			mu.Lock()  //without the lock we get fatal error: concurrent map writes at runtime 
+			mu.Lock() //without the lock we get fatal error: concurrent map writes at runtime
 			defer mu.Unlock()
 			myMap["a"] = i
 			wg.Done()
